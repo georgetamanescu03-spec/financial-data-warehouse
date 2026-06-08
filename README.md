@@ -1,10 +1,10 @@
 # Financial Data Warehouse
 
-Spring Boot + MongoDB implementation for the Data Warehouses lab project. The platform stores temporal financial market data, ingests sample provider data, exposes REST APIs for consumers, computes analytics outputs, and provides MCP-style tool endpoints for an LLM assistant.
+Spring Boot and MongoDB implementation for the Data Warehouses lab project. The platform stores temporal financial market data, ingests sample provider data, exposes REST APIs for consumers, computes analytics outputs, and provides MCP-style tool endpoints for an LLM assistant.
 
 ## What is included
 
-- MongoDB NoSQL storage for assets, data sources, time-series points, yearly summaries, and predictions.
+- MongoDB NoSQL storage for assets, data sources, time-series points, yearly summaries and predictions.
 - Temporal warehouse model: records are versioned with `systemDate`; updates create new versions; deletion is represented with marker records.
 - Flexible attributes and indicator maps for heterogeneous providers and asset classes.
 - Data access layer through repositories and `WarehouseService`.
