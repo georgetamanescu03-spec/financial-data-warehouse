@@ -1,0 +1,11 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: financial-dwh-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - financial-dwh-mongo:/data/db
+
+volumes:
+  financial-dwh-mongo:

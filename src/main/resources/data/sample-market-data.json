@@ -1,0 +1,131 @@
+{
+  "dataSourceId": "NASDAQ-DATA-LINK.QDL/BITFINEX",
+  "provider": "Nasdaq Data Link",
+  "name": "Bitfinex Crypto Exchange Rates",
+  "description": "Sample delayed cryptocurrency OHLCV data used for the data warehouse demo.",
+  "baseUrl": "https://data.nasdaq.com/databases/BITFINEX",
+  "provenance": {
+    "dataset": "BITFINEX",
+    "accessMode": "bundled demo sample",
+    "notes": "Small representative dataset for local project execution without API keys."
+  },
+  "assets": [
+    {
+      "assetId": "BTCUSD",
+      "symbol": "BTCUSD",
+      "assetClass": "crypto",
+      "region": "global",
+      "name": "Bitcoin / US Dollar",
+      "description": "Bitcoin quoted against the US dollar.",
+      "attributes": {
+        "currency": "USD",
+        "exchange": "Bitfinex"
+      },
+      "points": [
+        {
+          "businessDate": "2026-05-27",
+          "sourceReference": "BITFINEX/BTCUSD/2026-05-27",
+          "values": { "open": 67880.0, "high": 69210.0, "low": 67140.0, "close": 68890.0, "volume": 14320.5 }
+        },
+        {
+          "businessDate": "2026-05-28",
+          "sourceReference": "BITFINEX/BTCUSD/2026-05-28",
+          "values": { "open": 68890.0, "high": 70120.0, "low": 68410.0, "close": 69650.0, "volume": 15110.2 }
+        },
+        {
+          "businessDate": "2026-05-29",
+          "sourceReference": "BITFINEX/BTCUSD/2026-05-29",
+          "values": { "open": 69650.0, "high": 70400.0, "low": 69180.0, "close": 69980.0, "volume": 13205.7 }
+        },
+        {
+          "businessDate": "2026-06-01",
+          "sourceReference": "BITFINEX/BTCUSD/2026-06-01",
+          "values": { "open": 69980.0, "high": 71540.0, "low": 69770.0, "close": 71225.0, "volume": 16022.9 }
+        },
+        {
+          "businessDate": "2026-06-02",
+          "sourceReference": "BITFINEX/BTCUSD/2026-06-02",
+          "values": { "open": 71225.0, "high": 71800.0, "low": 70420.0, "close": 70910.0, "volume": 14988.1 }
+        }
+      ]
+    },
+    {
+      "assetId": "ETHUSD",
+      "symbol": "ETHUSD",
+      "assetClass": "crypto",
+      "region": "global",
+      "name": "Ethereum / US Dollar",
+      "description": "Ethereum quoted against the US dollar.",
+      "attributes": {
+        "currency": "USD",
+        "exchange": "Bitfinex"
+      },
+      "points": [
+        {
+          "businessDate": "2026-05-27",
+          "sourceReference": "BITFINEX/ETHUSD/2026-05-27",
+          "values": { "open": 3560.0, "high": 3655.0, "low": 3502.0, "close": 3620.0, "volume": 82410.0 }
+        },
+        {
+          "businessDate": "2026-05-28",
+          "sourceReference": "BITFINEX/ETHUSD/2026-05-28",
+          "values": { "open": 3620.0, "high": 3690.0, "low": 3575.0, "close": 3668.0, "volume": 79112.0 }
+        },
+        {
+          "businessDate": "2026-05-29",
+          "sourceReference": "BITFINEX/ETHUSD/2026-05-29",
+          "values": { "open": 3668.0, "high": 3712.0, "low": 3610.0, "close": 3644.0, "volume": 76850.0 }
+        },
+        {
+          "businessDate": "2026-06-01",
+          "sourceReference": "BITFINEX/ETHUSD/2026-06-01",
+          "values": { "open": 3644.0, "high": 3798.0, "low": 3630.0, "close": 3775.0, "volume": 83155.0 }
+        },
+        {
+          "businessDate": "2026-06-02",
+          "sourceReference": "BITFINEX/ETHUSD/2026-06-02",
+          "values": { "open": 3775.0, "high": 3810.0, "low": 3699.0, "close": 3722.0, "volume": 80540.0 }
+        }
+      ]
+    },
+    {
+      "assetId": "SOLUSD",
+      "symbol": "SOLUSD",
+      "assetClass": "crypto",
+      "region": "global",
+      "name": "Solana / US Dollar",
+      "description": "Solana quoted against the US dollar.",
+      "attributes": {
+        "currency": "USD",
+        "exchange": "Bitfinex"
+      },
+      "points": [
+        {
+          "businessDate": "2026-05-27",
+          "sourceReference": "BITFINEX/SOLUSD/2026-05-27",
+          "values": { "open": 164.2, "high": 169.4, "low": 160.8, "close": 168.1, "volume": 921000.0 }
+        },
+        {
+          "businessDate": "2026-05-28",
+          "sourceReference": "BITFINEX/SOLUSD/2026-05-28",
+          "values": { "open": 168.1, "high": 172.8, "low": 166.5, "close": 171.3, "volume": 887500.0 }
+        },
+        {
+          "businessDate": "2026-05-29",
+          "sourceReference": "BITFINEX/SOLUSD/2026-05-29",
+          "values": { "open": 171.3, "high": 174.0, "low": 167.9, "close": 169.8, "volume": 812340.0 }
+        },
+        {
+          "businessDate": "2026-06-01",
+          "sourceReference": "BITFINEX/SOLUSD/2026-06-01",
+          "values": { "open": 169.8, "high": 178.6, "low": 168.7, "close": 176.4, "volume": 965120.0 }
+        },
+        {
+          "businessDate": "2026-06-02",
+          "sourceReference": "BITFINEX/SOLUSD/2026-06-02",
+          "values": { "open": 176.4, "high": 177.1, "low": 170.2, "close": 172.0, "volume": 902450.0 }
+        }
+      ]
+    }
+  ]
+}
