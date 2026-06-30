@@ -120,11 +120,27 @@ curl -X POST http://localhost:8080/api/v1/assistant/chat -H "Content-Type: appli
 Call MCP tools:
 
 ```powershell
-curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}"
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{}}"
 ```
 
 ```powershell
-curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"compare_assets\",\"arguments\":{\"assetIdA\":\"BTCUSD\",\"assetIdB\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}"
+```
+
+```powershell
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"compare_assets\",\"arguments\":{\"assetIdA\":\"BTCUSD\",\"assetIdB\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+```
+
+Run the agentic workflow:
+
+```powershell
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"agent_market_brief\",\"arguments\":{\"primaryAssetId\":\"BTCUSD\",\"secondaryAssetId\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+```
+
+Say:
+
+```text
+The agent_market_brief tool demonstrates agent-style behavior. It plans multiple steps, discovers assets, summarizes BTC and ETH trends, compares them, runs analytics, and returns an answer grounded in warehouse data.
 ```
 
 Finish with:

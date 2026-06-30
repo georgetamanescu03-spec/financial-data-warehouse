@@ -22,6 +22,9 @@ Spring Boot and MongoDB implementation for the Data Warehouses lab project. The 
   - `GET /api/v1/assistant/tools`
   - `POST /api/v1/assistant/chat`
   - `POST /api/v1/mcp`
+- Agentic AI demo:
+  - `agent_market_brief` MCP tool performs a multi-step workflow over warehouse data.
+  - See `LLM_MCP_DEMO.md` and `langflow-agent-workflow.json`.
 - OpenAPI/Swagger UI through SpringDoc.
 
 ## Run locally
@@ -104,12 +107,24 @@ curl -X POST http://localhost:8080/api/v1/assistant/chat -H "Content-Type: appli
 
 Call MCP-style tools:
 
+Initialize the MCP-style server:
+
 ```powershell
-curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}"
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{}}"
 ```
 
 ```powershell
-curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"summarize_trends\",\"arguments\":{\"assetId\":\"BTCUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}"
+```
+
+```powershell
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"summarize_trends\",\"arguments\":{\"assetId\":\"BTCUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+```
+
+Run the agent-style market brief:
+
+```powershell
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"agent_market_brief\",\"arguments\":{\"primaryAssetId\":\"BTCUSD\",\"secondaryAssetId\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
 ```
 
 ## Notes

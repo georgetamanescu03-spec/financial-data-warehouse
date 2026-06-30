@@ -93,6 +93,7 @@ The assistant exposes data-grounded tools that can be called by a model or demon
 - `fetch_time_series`
 - `summarize_trends`
 - `compare_assets`
+- `agent_market_brief`
 - `run_ingestion`
 - `run_analytics`
 
@@ -103,6 +104,8 @@ Endpoints:
 - `POST /api/v1/mcp`
 
 The `/api/v1/mcp` endpoint accepts simple JSON-RPC-style `tools/list` and `tools/call` messages, making the assistant behavior demonstrable without requiring an external LLM API key.
+
+For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. The file `LLM_MCP_DEMO.md` contains runnable JSON-RPC examples, and `langflow-agent-workflow.json` documents a LangFlow-style flow for the same sequence.
 
 ## Reproducibility
 

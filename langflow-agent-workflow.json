@@ -1,0 +1,60 @@
+{
+  "name": "Financial Data Warehouse MCP Agent Demo",
+  "description": "Illustrative LangFlow-style workflow showing how an LLM agent would call the data warehouse MCP tools.",
+  "steps": [
+    {
+      "id": "initialize",
+      "type": "mcp_call",
+      "method": "initialize",
+      "description": "Start the MCP session and discover server capabilities."
+    },
+    {
+      "id": "list_tools",
+      "type": "mcp_call",
+      "method": "tools/list",
+      "description": "Read the tool catalog exposed by the warehouse."
+    },
+    {
+      "id": "list_assets",
+      "type": "tool_call",
+      "tool": "list_assets",
+      "arguments": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "id": "summarize_primary",
+      "type": "tool_call",
+      "tool": "summarize_trends",
+      "arguments": {
+        "assetId": "BTCUSD",
+        "dataSourceId": "NASDAQ-DATA-LINK.QDL/BITFINEX"
+      }
+    },
+    {
+      "id": "compare_assets",
+      "type": "tool_call",
+      "tool": "compare_assets",
+      "arguments": {
+        "assetIdA": "BTCUSD",
+        "assetIdB": "ETHUSD",
+        "dataSourceId": "NASDAQ-DATA-LINK.QDL/BITFINEX"
+      }
+    },
+    {
+      "id": "run_analytics",
+      "type": "tool_call",
+      "tool": "run_analytics",
+      "arguments": {
+        "assetId": "BTCUSD",
+        "dataSourceId": "NASDAQ-DATA-LINK.QDL/BITFINEX"
+      }
+    },
+    {
+      "id": "final_answer",
+      "type": "llm_response",
+      "description": "Generate a concise answer grounded only in tool outputs."
+    }
+  ]
+}
