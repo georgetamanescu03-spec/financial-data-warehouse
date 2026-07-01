@@ -105,12 +105,12 @@ Endpoints:
 
 The `/api/v1/mcp` endpoint accepts simple JSON-RPC-style `tools/list` and `tools/call` messages, making the assistant behavior demonstrable without requiring an external LLM API key.
 
-For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. The file `LLM_MCP_DEMO.md` contains runnable JSON-RPC examples and `langflow-agent-workflow.json` documents a LangFlow-style flow for the same sequence.
+For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. This workflow is implemented directly inside the Spring Boot application and can be called through the `/api/v1/mcp` endpoint.
 
 ## Reproducibility
 
 1. Start MongoDB with Docker Compose.
 2. Run the Spring Boot application from IntelliJ.
-3. Use Swagger or the demo script to call ingestion, data exploration, analytics, and assistant endpoints.
+3. Use Swagger or the commands from README.md to call ingestion, data exploration, analytics, and assistant endpoints.
 
 The bundled sample data keeps the demo reproducible without external provider credentials.
