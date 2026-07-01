@@ -22,9 +22,9 @@ Spring Boot and MongoDB implementation for the Data Warehouses lab project. The 
   - `GET /api/v1/assistant/tools`
   - `POST /api/v1/assistant/chat`
   - `POST /api/v1/mcp`
-- Agentic AI demo:
-  - `agent_market_brief` MCP tool performs a multi-step workflow over warehouse data.
-  - See `LLM_MCP_DEMO.md` and `langflow-agent-workflow.json`.
+- MCP-style assistant tools:
+  - `agent_market_brief` performs a multi-step workflow over warehouse data.
+  - The tools can be called directly through the `/api/v1/mcp` endpoint.
 - OpenAPI/Swagger UI through SpringDoc.
 
 ## Run locally
