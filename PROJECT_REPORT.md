@@ -2,9 +2,9 @@
 
 ## Objective
 
-Acme Ltd needs a financial market data warehouse that can ingest market data from external providers, store it safely over time, expose it to consumers, support analytics, and provide data-grounded assistant tools. This project implements those requirements with Java, Spring Boot, and MongoDB.
+Acme Ltd needs a financial market data warehouse that can ingest market data from external providers, store it safely over time, expose it to consumers, support analytics, and provide data-grounded assistant tools. This project implements those requirements with Java, Spring Boot and MongoDB.
 
-## Technology Stack
+## Technology stack
 
 - Java 17
 - Spring Boot
@@ -14,17 +14,17 @@ Acme Ltd needs a financial market data warehouse that can ingest market data fro
 - JUnit 5
 - Docker Compose for local MongoDB
 
-## Data Model
+## Data model
 
 The platform stores three core warehouse concepts:
 
 - `Asset`: logical financial instrument such as `BTCUSD`, including symbol, asset class, region, description, and flexible attributes.
 - `DataSource`: provider metadata and provenance, such as the bundled Nasdaq Data Link / Bitfinex sample.
-- `TimeSeriesData`: market observations for one asset and provider on a business date, with flexible indicator values such as open, high, low, close, and volume.
+- `TimeSeriesData`: market observations for one asset and provider on a business date, with flexible indicator values such as open, high, low, close and volume.
 
-MongoDB document ids are separated from business ids. This is important because the warehouse must allow multiple versions of the same asset, source, or time-series point.
+MongoDB document ids are separated from business ids. This is important because the warehouse must allow multiple versions of the same asset, source or time-series point.
 
-## Temporal Warehouse Behavior
+## Temporal warehouse behavior
 
 The project follows the temporal rule from the assignment:
 
@@ -51,9 +51,9 @@ The workflow is split into:
 2. Transform: normalize assets, source metadata, and time-series points.
 3. Load: write warehouse records through `WarehouseService`.
 
-The ingestion result reports fetched records, transformed records, stored assets, stored data sources, stored time-series records, duplicate skips, and failures. The import is duplicate-safe by using version hashes.
+The ingestion result reports fetched records, transformed records, stored assets, stored data sources, stored time-series records, duplicate skips and failures. The import is duplicate-safe by using version hashes.
 
-## REST Consumption API
+## REST consumption API
 
 The API supports the required queries:
 
@@ -82,7 +82,7 @@ The analytics module reads current time-series records and stores outputs back i
 - `analytics_yearly_summaries`: yearly count, min close, max close, and average close.
 - `analytics_predictions`: next-business-day close prediction using ordinary least squares over business date and close price.
 
-This provides the same functional shape as the Spark lab requirements: read warehouse data, aggregate it, build a prediction workflow, and persist derived outputs. For a larger deployment, the same collections can be consumed by Apache Spark through the MongoDB Spark Connector.
+This provides the same functional shape as the Spark lab requirements: read warehouse data, aggregate it, build a prediction workflow and persist derived outputs. For a larger deployment, the same collections can be consumed by Apache Spark through the MongoDB Spark Connector.
 
 ## LLM / MCP Assistant
 
@@ -105,7 +105,7 @@ Endpoints:
 
 The `/api/v1/mcp` endpoint accepts simple JSON-RPC-style `tools/list` and `tools/call` messages, making the assistant behavior demonstrable without requiring an external LLM API key.
 
-For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. The file `LLM_MCP_DEMO.md` contains runnable JSON-RPC examples, and `langflow-agent-workflow.json` documents a LangFlow-style flow for the same sequence.
+For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. The file `LLM_MCP_DEMO.md` contains runnable JSON-RPC examples and `langflow-agent-workflow.json` documents a LangFlow-style flow for the same sequence.
 
 ## Reproducibility
 
