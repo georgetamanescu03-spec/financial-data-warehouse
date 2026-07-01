@@ -6,7 +6,7 @@ This file documents the part of the project related to the LLM / Agentic AI cons
 POST http://localhost:8080/api/v1/mcp
 ```
 
-The assistant is grounded in warehouse data. It does not answer from generic finance knowledge; it calls tools backed by the platform services and MongoDB records.
+The assistant is grounded in warehouse data. It does not answer from generic finance knowledge, it calls tools backed by the platform services and MongoDB records.
 
 ## MCP Methods
 
@@ -22,7 +22,7 @@ Expected result includes:
 - server name
 - tool capability
 
-### 2. List Tools
+### 2. List tools
 
 ```powershell
 curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/list\",\"params\":{}}"
@@ -51,7 +51,7 @@ The result contains:
 - `structuredContent`: structured JSON data for programmatic use
 - `isError`: tool execution status
 
-## Agentic Workflow
+## Agentic workflow
 
 The project includes an agent-style tool:
 
@@ -74,7 +74,7 @@ Call it with:
 curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"agent_market_brief\",\"arguments\":{\"primaryAssetId\":\"BTCUSD\",\"secondaryAssetId\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
 ```
 
-## Assistant Chat Endpoint
+## Assistant chat endpoint
 
 For a simpler demo, the project also exposes:
 
@@ -86,12 +86,4 @@ Example:
 
 ```powershell
 curl -X POST http://localhost:8080/api/v1/assistant/chat -H "Content-Type: application/json" -d "{\"message\":\"prepare an agent market brief\",\"arguments\":{}}"
-```
-
-## What To Say In The Demo
-
-Use this explanation:
-
-```text
-For the LLM consumer requirement, I expose the warehouse capabilities as MCP-style tools. The model can initialize the server, list available tools, and call tools such as list_assets, fetch_time_series, summarize_trends, compare_assets, and run_analytics. I also implemented an agent-style tool called agent_market_brief. This tool performs multiple steps: it discovers assets, summarizes BTC and ETH trends, compares them, runs analytics, and returns a grounded result based on the warehouse data.
 ```
