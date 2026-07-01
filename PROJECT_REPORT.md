@@ -122,7 +122,7 @@ For the agentic AI requirement, the `agent_market_brief` tool performs a multi-s
 
 ## Testing
 
-Automated tests are stored under `src/test/java`. The most important tests check temporal warehouse correctness: latest versions win, and deletion markers suppress older values. See `TESTING.md`.
+Automated tests are stored under `src/test/java`. The most important tests check temporal warehouse correctness: latest versions win, and deletion markers suppress older values.
 
 ## Reproducibility
 
