@@ -121,12 +121,6 @@ curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json
 curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"summarize_trends\",\"arguments\":{\"assetId\":\"BTCUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
 ```
 
-Run the agent-style market brief:
-
-```powershell
-curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"agent_market_brief\",\"arguments\":{\"primaryAssetId\":\"BTCUSD\",\"secondaryAssetId\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
-```
-
 ## Notes
 
 The analytics implementation is intentionally runnable inside the Spring Boot project for a local demo. It mirrors the required Spark use cases: group time-series records by year, persist summaries, build a regression-style prediction, and persist the result. In a production deployment, this service can be moved to Apache Spark using the MongoDB Spark Connector while keeping the same input/output collections.
