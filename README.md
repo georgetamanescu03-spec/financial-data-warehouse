@@ -161,8 +161,6 @@ Run automated tests:
 .\mvnw.cmd test
 ```
 
-More details are in `TESTING.md`.
-
 ## Notes
 
 The Spring Boot analytics endpoints are intentionally runnable inside the application for a simple local demo. The project also includes a real Apache Spark module under `src/spark/java`, with one aggregation job and one Spark ML prediction job that read from MongoDB and write results back to MongoDB.
