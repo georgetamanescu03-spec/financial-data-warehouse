@@ -1,4 +1,4 @@
-# Real Spark Analytics Module
+# Real Spark analytics module
 
 This project includes a real Apache Spark module in addition to the Spring Boot analytics endpoints.
 
@@ -12,7 +12,7 @@ It is compiled only when the Maven `spark` profile is enabled. This keeps the no
 
 ## Spark Jobs
 
-### 1. Yearly Aggregation
+### 1. Yearly aggregation
 
 Class:
 
@@ -37,7 +37,7 @@ What it does:
 spark_yearly_summaries
 ```
 
-### 2. Close Price Prediction
+### 2. Close price prediction
 
 Class:
 
@@ -58,7 +58,7 @@ What it does:
 spark_close_predictions
 ```
 
-## Build Spark Module
+## Build Spark module
 
 Use:
 
@@ -86,7 +86,7 @@ Example:
 .\mvnw.cmd -Pspark exec:java -Dexec.mainClass="com.example.financialdatawarehouse.spark.SparkYearlyAggregationJob" -Dexec.args="mongodb://localhost:27017/financial_dwh financial_dwh local[*]"
 ```
 
-## Run Spark Prediction
+## Run Spark prediction
 
 ```powershell
 .\mvnw.cmd -Pspark exec:java -Dexec.mainClass="com.example.financialdatawarehouse.spark.SparkClosePredictionJob"
@@ -102,10 +102,4 @@ Example:
 
 ```powershell
 .\mvnw.cmd -Pspark exec:java -Dexec.mainClass="com.example.financialdatawarehouse.spark.SparkClosePredictionJob" -Dexec.args="BTCUSD NASDAQ-DATA-LINK.QDL/BITFINEX mongodb://localhost:27017/financial_dwh financial_dwh local[*]"
-```
-
-## What To Say In The Demo
-
-```text
-For the Spark requirement, I added a separate Spark module. It contains two jobs. The first job reads time-series data from MongoDB, groups it by year, computes count, min, max, and average close price, and writes the results back to MongoDB. The second job uses Spark ML LinearRegression to create a next-close prediction and writes the prediction back to MongoDB. The Spark code is in src/spark/java and is activated with the Maven spark profile.
 ```
