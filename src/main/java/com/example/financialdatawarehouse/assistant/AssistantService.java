@@ -47,6 +47,10 @@ public class AssistantService {
         );
     }
 
+    public boolean hasTool(String toolName) {
+        return listTools().stream().anyMatch(tool -> tool.name().equals(toolName));
+    }
+
     public AssistantResponse answer(String message) {
         String prompt = message == null ? "" : message.toLowerCase();
         if (prompt.contains("compare")) {

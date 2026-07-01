@@ -18,6 +18,10 @@ Spring Boot and MongoDB implementation for the Data Warehouses lab project. The 
 - Analytics:
   - yearly close-price summaries
   - simple next-close prediction stored back in MongoDB
+- Real Spark module:
+  - `SparkYearlyAggregationJob`
+  - `SparkClosePredictionJob`
+  - see `SPARK_MODULE.md`
 - Assistant and MCP-style tool surface:
   - `GET /api/v1/assistant/tools`
   - `POST /api/v1/assistant/chat`
@@ -121,6 +125,44 @@ curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json
 curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"summarize_trends\",\"arguments\":{\"assetId\":\"BTCUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
 ```
 
+Run the agent-style market brief:
+
+```powershell
+curl -X POST http://localhost:8080/api/v1/mcp -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"id\":4,\"method\":\"tools/call\",\"params\":{\"name\":\"agent_market_brief\",\"arguments\":{\"primaryAssetId\":\"BTCUSD\",\"secondaryAssetId\":\"ETHUSD\",\"dataSourceId\":\"NASDAQ-DATA-LINK.QDL/BITFINEX\"}}}"
+```
+
+## Spark Module
+
+Build the Spark module:
+
+```powershell
+.\mvnw.cmd -Pspark -DskipTests package
+```
+
+Run Spark yearly aggregation:
+
+```powershell
+.\mvnw.cmd -Pspark exec:java -Dexec.mainClass="com.example.financialdatawarehouse.spark.SparkYearlyAggregationJob"
+```
+
+Run Spark close prediction:
+
+```powershell
+.\mvnw.cmd -Pspark exec:java -Dexec.mainClass="com.example.financialdatawarehouse.spark.SparkClosePredictionJob"
+```
+
+More details are in `SPARK_MODULE.md`.
+
+## Tests
+
+Run automated tests:
+
+```powershell
+.\mvnw.cmd test
+```
+
+More details are in `TESTING.md`.
+
 ## Notes
 
-The analytics implementation is intentionally runnable inside the Spring Boot project for a local demo. It mirrors the required Spark use cases: group time-series records by year, persist summaries, build a regression-style prediction, and persist the result. In a production deployment, this service can be moved to Apache Spark using the MongoDB Spark Connector while keeping the same input/output collections.
+The Spring Boot analytics endpoints are intentionally runnable inside the application for a simple local demo. The project also includes a real Apache Spark module under `src/spark/java`, with one aggregation job and one Spark ML prediction job that read from MongoDB and write results back to MongoDB.

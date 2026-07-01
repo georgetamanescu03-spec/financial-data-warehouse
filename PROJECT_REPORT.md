@@ -75,14 +75,27 @@ Swagger UI is available at:
 http://localhost:8080/swagger-ui.html
 ```
 
-## Analytics
+## Analytics And Spark
 
-The analytics module reads current time-series records and stores outputs back into MongoDB:
+The platform has two analytics paths.
+
+The Spring Boot analytics module reads current time-series records and stores outputs back into MongoDB:
 
 - `analytics_yearly_summaries`: yearly count, min close, max close, and average close.
 - `analytics_predictions`: next-business-day close prediction using ordinary least squares over business date and close price.
 
-This provides the same functional shape as the Spark lab requirements: read warehouse data, aggregate it, build a prediction workflow and persist derived outputs. For a larger deployment, the same collections can be consumed by Apache Spark through the MongoDB Spark Connector.
+The project also includes a real Apache Spark module under:
+
+```text
+src/spark/java
+```
+
+Spark jobs:
+
+- `SparkYearlyAggregationJob`: reads MongoDB `time_series`, selects latest temporal records, groups by year, computes count/min/max/average close price, and writes to `spark_yearly_summaries`.
+- `SparkClosePredictionJob`: reads MongoDB `time_series`, builds a training dataset, uses Spark ML `LinearRegression`, predicts the next close price, and writes to `spark_close_predictions`.
+
+The Spark module is enabled with the Maven `spark` profile. This keeps the normal Spring Boot app easy to run while still providing real Spark analytics code for the project requirement.
 
 ## LLM / MCP Assistant
 
@@ -103,9 +116,13 @@ Endpoints:
 - `POST /api/v1/assistant/chat`
 - `POST /api/v1/mcp`
 
-The `/api/v1/mcp` endpoint accepts simple JSON-RPC-style `tools/list` and `tools/call` messages, making the assistant behavior demonstrable without requiring an external LLM API key.
+The `/api/v1/mcp` endpoint accepts JSON-RPC-style `initialize`, `ping`, `tools/list`, and `tools/call` messages, making the assistant behavior demonstrable without requiring an external LLM API key. It also validates common MCP request mistakes, such as missing method names or unknown tool names.
 
 For the agentic AI requirement, the `agent_market_brief` tool performs a multi-step workflow: discover assets, summarize a primary asset, summarize a secondary asset, compare both assets, run analytics, and return a grounded market brief. This workflow is implemented directly inside the Spring Boot application and can be called through the `/api/v1/mcp` endpoint.
+
+## Testing
+
+Automated tests are stored under `src/test/java`. The most important tests check temporal warehouse correctness: latest versions win, and deletion markers suppress older values. See `TESTING.md`.
 
 ## Reproducibility
 

@@ -26,9 +26,21 @@ public class McpController {
 
     @PostMapping("/mcp")
     public Map<String, Object> handle(@RequestBody McpJsonRpcRequest request) {
+        if (request == null) {
+            return error(null, -32600, "Invalid JSON-RPC request body.");
+        }
+
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("jsonrpc", request.jsonrpc() == null ? "2.0" : request.jsonrpc());
         response.put("id", request.id());
+
+        if (request.jsonrpc() != null && !"2.0".equals(request.jsonrpc())) {
+            return error(request.id(), -32600, "Only JSON-RPC 2.0 requests are supported.");
+        }
+
+        if (request.method() == null || request.method().isBlank()) {
+            return error(request.id(), -32600, "Missing required JSON-RPC method.");
+        }
 
         if ("initialize".equals(request.method())) {
             response.put("result", Map.of(
@@ -61,6 +73,12 @@ public class McpController {
 
         if ("tools/call".equals(request.method())) {
             String toolName = request.params() == null ? "" : String.valueOf(request.params().get("name"));
+            if (toolName.isBlank() || "null".equals(toolName)) {
+                return error(request.id(), -32602, "Missing required MCP tool name.");
+            }
+            if (!assistantService.hasTool(toolName)) {
+                return error(request.id(), -32602, "Unknown MCP tool name: " + toolName);
+            }
             Map<String, Object> arguments = mapArg(request.params() == null ? null : request.params().get("arguments"));
             Object toolResult = assistantService.callTool(toolName, arguments);
             response.put("result", mcpToolResult(toolResult));
@@ -70,6 +88,17 @@ public class McpController {
         response.put("error", Map.of(
                 "code", -32601,
                 "message", "Unsupported MCP method: " + request.method()
+        ));
+        return response;
+    }
+
+    private Map<String, Object> error(Object id, int code, String message) {
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("jsonrpc", "2.0");
+        response.put("id", id);
+        response.put("error", Map.of(
+                "code", code,
+                "message", message
         ));
         return response;
     }
